@@ -35,10 +35,7 @@ class DeviceInfoMiddleware(object):
                 height = None
                 pixelratio = None
         info = {'width': width, 'height': height, 'pixelratio': pixelratio}
-        if width is not None:
-            info['type'] = _get_device_type(width)
-        else:
-            info['type'] = None
+        info['type'] = _get_device_type(width)
         request.device_info = info
 
     def process_response(self, request, response):
