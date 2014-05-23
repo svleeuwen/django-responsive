@@ -10,7 +10,7 @@ def _get_device_type(width):
     for name, cutoff in sorted_types:
         if cutoff is None:
             default_type = name
-        elif width <= cutoff:
+        elif not width is None and width <= cutoff:
             return name
     return default_type
 
@@ -20,8 +20,5 @@ def device_info(request):
     default = {'width': None, 'height': None, 'pixelratio': None}
     info =  getattr(request, 'device_info', default)
     width = info.get('width', None)
-    if width is not None:
-        info['type'] =  _get_device_type(width)
-    else:
-        info['type'] = None
+    info['type'] =  _get_device_type(width)
     return {'device_info': info}
